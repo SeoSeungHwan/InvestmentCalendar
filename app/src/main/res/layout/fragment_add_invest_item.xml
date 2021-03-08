@@ -43,7 +43,7 @@
             android:textSize="20sp" />
 
         <EditText
-            android:id="@+id/id_et"
+            android:id="@+id/start_asset_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
@@ -89,7 +89,7 @@
             android:textSize="20sp" />
 
         <EditText
-            android:id="@+id/pwd_et"
+            android:id="@+id/finish_asset_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
@@ -130,13 +130,13 @@
         app:layout_constraintTop_toBottomOf="@+id/line8" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/profit_asset_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:layout_marginEnd="40dp"
         android:gravity="center"
-        android:text="+ 300000"
+        android:text="300000"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/textView"
         app:layout_constraintEnd_toEndOf="parent"
@@ -144,11 +144,11 @@
 
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/profit_percent_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="+  3%"
-        app:layout_constraintStart_toStartOf="@+id/textView4"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        android:text="3"
+        app:layout_constraintStart_toStartOf="@+id/profit_asset_tv"
+        app:layout_constraintTop_toBottomOf="@+id/profit_asset_tv" />
 </androidx.constraintlayout.widget.ConstraintLayout>

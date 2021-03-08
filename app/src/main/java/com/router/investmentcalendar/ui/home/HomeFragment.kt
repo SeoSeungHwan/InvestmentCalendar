@@ -43,22 +43,15 @@ class HomeFragment : Fragment() {
 
         val root = inflater.inflate(R.layout.fragment_home, container, false)
 
-
-
         //사용자 이미지와 이름 추가
         updateKaKaoLoginUi()
-        root.calendarView.setOnDayClickListener {
-            //Log.d(TAG, "onCreateView: " + it.calendar.toString())
-        }
 
-        //TODO 해당되는 아이디에대한 InvestItem목록 가져오기
-        myRef.child(GlobalApplication.UserId).get().addOnSuccessListener {
-            Log.d(TAG, "onCreateView: "+it.value)
-        }
 
-        //달력 Day클릭 시 그날 자산현황 나타내기
+        //TODO 해당아이디 수익률 쫙불러와 달력에 수익률 표시하기
+
+        //TODO 달력날짜 클릭시 해당 날짜 시작금액 마감금액 수익률 표시하기
         root.calendarView.setOnDayClickListener { eventDay ->
-            myRef.child(GlobalApplication.UserId).child(getSelectDate(eventDay.calendar)).get()
+          /*  myRef.child(GlobalApplication.UserId).child(getSelectDate(eventDay.calendar)).get()
                 .addOnSuccessListener { dataSnapShot ->
                     var investItem = dataSnapShot.getValue(InvestItem::class.java)
                     if (investItem != null) {
@@ -70,7 +63,7 @@ class HomeFragment : Fragment() {
                     //Log.d(TAG, "onCreateView: ${dataSnapShot.value}")
                 }.addOnFailureListener {
                 Log.d(TAG, "onCreateView: "+it.message)
-            }
+            }*/
         }
 
         //TODO safeargs로 날짜 전달
@@ -102,6 +95,5 @@ class HomeFragment : Fragment() {
             return@me
         }
     }
-
 
 }
