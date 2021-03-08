@@ -14,9 +14,12 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.google.firebase.database.*
 import com.kakao.sdk.user.UserApiClient
+import com.router.investmentcalendar.AddInvestItemFragment
 import com.router.investmentcalendar.GlobalApplication
 import com.router.investmentcalendar.R
 import com.router.investmentcalendar.model.InvestItem
@@ -68,12 +71,12 @@ class HomeFragment : Fragment() {
                 }.addOnFailureListener {
                 Log.d(TAG, "onCreateView: "+it.message)
             }
-
-
         }
+
+        //TODO safeargs로 날짜 전달
         //자산추가 floating버튼 클릭 이벤트
         root.add_investmemo_btn.setOnClickListener {
-            addInvestItem_Dialog(getSelectDate(calendarView.firstSelectedDate))
+            findNavController().navigate(R.id.action_navigation_home_to_addInvestItemFragment)
         }
         return root
     }
@@ -83,29 +86,7 @@ class HomeFragment : Fragment() {
         val year = calendar.get(Calendar.YEAR)
         val month = calendar.get(Calendar.MONTH) + 1
         val day = calendar.get(Calendar.DAY_OF_MONTH)
-        return "${year}-${month}-${day}"
-    }
-
-    //자산 추가시 파이어베이스에 입력하는 함수
-    //TODO 자산 입력 시 전날대비 수익인지 손해인지
-    @RequiresApi(Build.VERSION_CODES.O)
-    fun addInvestItem_Dialog(selectDate: String) {
-
-        val editText = EditText(this.context)
-        editText.inputType = InputType.TYPE_NUMBER_FLAG_SIGNED + InputType.TYPE_CLASS_NUMBER
-        val builder = AlertDialog.Builder(this.context)
-        builder.setTitle(selectDate)
-        builder.setMessage("금액을 입력해주세요.")
-        builder.setView(editText)
-        builder.setPositiveButton("입력", DialogInterface.OnClickListener { dialogInterface, i ->
-            myRef.child(GlobalApplication.UserId).child(selectDate)
-                .setValue(InvestItem(editText.text.toString(), "true"))
-            Toast.makeText(this.context, "자산이 입력되었습니다.", Toast.LENGTH_SHORT).show()
-        })
-        builder.setNegativeButton("취소", DialogInterface.OnClickListener { dialogInterface, i ->
-
-        })
-        builder.show()
+        return "${year}.${month}.${day}"
     }
 
     fun updateKaKaoLoginUi() {

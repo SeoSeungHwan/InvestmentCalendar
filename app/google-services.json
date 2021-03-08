@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1093098647268",
+    "firebase_url": "https://investmentcalendar-e6893-default-rtdb.firebaseio.com",
+    "project_id": "investmentcalendar-e6893",
+    "storage_bucket": "investmentcalendar-e6893.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1093098647268:android:affff1a4105823be9786f1",
+        "android_client_info": {
+          "package_name": "com.router.investmentcalendar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1093098647268-3s5nfpn8ea8a7rm3g8bjub4d571skl5u.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.router.investmentcalendar",
+            "certificate_hash": "b0614b950c2d2872c5a5d898450291be7692af97"
+          }
+        },
+        {
+          "client_id": "1093098647268-cs8q9g30pl9c02m7cvq2qlv70akp9kbe.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC2XWN908dGrDbMqNfib7y_0TBne0B5Vpc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1093098647268-cs8q9g30pl9c02m7cvq2qlv70akp9kbe.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

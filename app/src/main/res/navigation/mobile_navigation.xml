@@ -9,17 +9,30 @@
         android:id="@+id/navigation_home"
         android:name="com.router.investmentcalendar.ui.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_navigation_home_to_addInvestItemFragment"
+            app:destination="@id/addInvestItemFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_dashboard"
         android:name="com.router.investmentcalendar.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
+        android:label="@string/title_list"
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
         android:id="@+id/navigation_notifications"
         android:name="com.router.investmentcalendar.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
+        android:label="@string/title_chart"
         tools:layout="@layout/fragment_notifications" />
+    <fragment
+        android:id="@+id/addInvestItemFragment"
+        android:name="com.router.investmentcalendar.AddInvestItemFragment"
+        android:label="fragment_add_invest_item"
+        tools:layout="@layout/fragment_add_invest_item" >
+        <action
+            android:id="@+id/action_addInvestItemFragment_to_navigation_home"
+            app:destination="@id/navigation_home" />
+    </fragment>
 </navigation>

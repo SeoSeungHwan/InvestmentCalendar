@@ -64,22 +64,114 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <LinearLayout
-        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="20dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/calendarView">
+        app:layout_constraintTop_toBottomOf="@+id/date_tv">
 
         <TextView
             android:id="@+id/assettext"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="자산" />
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/hanygo230"
+            android:gravity="center"
+            android:text="총 보유자산 "
+            android:textColor="#9E9E9E"
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/asset_tv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/hanygo230"
+            android:paddingLeft="15dp"
+            android:text="10000000"
+            android:textColor="#000000"
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/hanygo230"
+            android:gravity="center"
+            android:text="원"
+            android:textColor="#9E9E9E"
+            android:textSize="20sp" />
+
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+
+        <TextView
+            android:id="@+id/profit_Textview"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/hanygo230"
+            android:gravity="center"
+            android:text="전일 대비 "
+            android:textColor="#9E9E9E"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/profit_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/hanygo230"
+            android:paddingLeft="15dp"
+            android:text="+3.5"
+            android:textColor="#000000"
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/hanygo230"
+            android:gravity="center"
+            android:text="%"
+            android:textColor="#9E9E9E"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/date_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="15dp"
+        android:text="오늘 날짜"
+        android:fontFamily="@font/hanygo230"
+        android:textSize="20sp"
+        android:textColor="#757575"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/calendarView" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="30dp"
+        android:background="@color/mainColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/date_tv" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
