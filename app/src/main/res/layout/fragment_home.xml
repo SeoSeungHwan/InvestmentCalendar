@@ -9,7 +9,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="60dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -44,12 +44,10 @@
         android:id="@+id/calendarView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:headerColor="@color/mainColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
-        app:headerColor="@color/mainColor"
-        app:datePicker="true"
-        app:type="one_day_picker"/>
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/add_investmemo_btn"
@@ -68,39 +66,127 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/date_tv">
 
         <TextView
-            android:id="@+id/assettext"
+            android:id="@+id/start_asset_text"
             android:layout_width="100dp"
             android:layout_height="match_parent"
             android:fontFamily="@font/hanygo230"
             android:gravity="center"
-            android:text="총 보유자산 "
+            android:text="시작 금액"
             android:textColor="#9E9E9E"
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/asset_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:fontFamily="@font/hanygo230"
-            android:paddingLeft="15dp"
-            android:text="10000000"
-            android:textColor="#000000"
-            android:textSize="30sp" />
-
-        <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/start_asset_tv"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:fontFamily="@font/hanygo230"
             android:gravity="center"
-            android:text="원"
+            android:paddingLeft="15dp"
+            android:textColor="#000000"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/won_text"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/hanygo230"
+            android:gravity="center"
+            android:text=" 원"
+            android:textColor="#9E9E9E"
+            android:textSize="20sp" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+
+        <TextView
+            android:id="@+id/finish_asset_text"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/hanygo230"
+            android:gravity="center"
+            android:text="마감 금액"
+            android:textColor="#9E9E9E"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/finish_asset_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/hanygo230"
+            android:gravity="center"
+            android:paddingLeft="15dp"
+            android:textColor="#000000"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/textView24"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/hanygo230"
+            android:gravity="center"
+            android:text=" 원"
+            android:textColor="#9E9E9E"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout87"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout8">
+
+        <TextView
+            android:id="@+id/profit_text"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/hanygo230"
+            android:gravity="center"
+            android:text="손익 금액"
+            android:textColor="#9E9E9E"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/profit_asset_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/hanygo230"
+            android:gravity="center"
+            android:paddingLeft="15dp"
+            android:textColor="#000000"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/won22"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/hanygo230"
+            android:gravity="center"
+            android:text=" 원"
             android:textColor="#9E9E9E"
             android:textSize="20sp" />
 
@@ -111,31 +197,31 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="5dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout87">
 
         <TextView
-            android:id="@+id/profit_Textview"
+            android:id="@+id/proft_text"
             android:layout_width="100dp"
             android:layout_height="match_parent"
             android:fontFamily="@font/hanygo230"
             android:gravity="center"
-            android:text="전일 대비 "
+            android:text="손익 률 "
             android:textColor="#9E9E9E"
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/profit_tv"
+            android:id="@+id/profit_percent_tv"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:fontFamily="@font/hanygo230"
+            android:gravity="center"
             android:paddingLeft="15dp"
-            android:text="+3.5"
             android:textColor="#000000"
-            android:textSize="30sp" />
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/textView3"
@@ -143,7 +229,7 @@
             android:layout_height="match_parent"
             android:fontFamily="@font/hanygo230"
             android:gravity="center"
-            android:text="%"
+            android:text=" %"
             android:textColor="#9E9E9E"
             android:textSize="20sp" />
 
@@ -154,11 +240,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="15dp"
-        android:text="오늘 날짜"
+        android:layout_marginTop="5dp"
         android:fontFamily="@font/hanygo230"
-        android:textSize="20sp"
+        android:text="오늘 날짜"
         android:textColor="#757575"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/calendarView" />

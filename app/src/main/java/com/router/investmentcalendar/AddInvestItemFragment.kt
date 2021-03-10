@@ -18,6 +18,7 @@ import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.router.investmentcalendar.model.InvestItem
@@ -27,7 +28,7 @@ import kotlinx.android.synthetic.main.fragment_add_invest_item.view.*
 class AddInvestItemFragment : Fragment() {
 
     val database: FirebaseDatabase = FirebaseDatabase.getInstance()
-    val myRef: DatabaseReference = database.getReference("user")
+    val myRef: DatabaseReference = database.getReference(GlobalApplication.UserId)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,12 +36,13 @@ class AddInvestItemFragment : Fragment() {
     ): View? {
 
         val root = inflater.inflate(R.layout.fragment_add_invest_item, container, false)
+        val args: AddInvestItemFragmentArgs by navArgs()
+
+        root.start_asset_tv.text= args.date+" 시작금액"
+        root.finish_asset_tv.text = args.date + " 마감금액"
 
         root.add_group_frame_btn.setOnClickListener {
-
-
-            //TODO 수익률 가격 , 퍼센트 계산해서 setValue 에 집어넣기
-            myRef.child(GlobalApplication.UserId).child("2021-03-08")
+            myRef.child(args.date)
                 .setValue(
                     InvestItem(
                         start_asset_et.text.toString().toLong(),
@@ -53,9 +55,7 @@ class AddInvestItemFragment : Fragment() {
             findNavController().navigate(R.id.action_addInvestItemFragment_to_navigation_home)
         }
 
-        //평가손액 textchangeevent
-        var profit_asset =0L
-        var profit_percent =0.0
+
          val textWatcher = object : TextWatcher {
             override fun afterTextChanged(s: Editable?) { }
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) { }
@@ -64,10 +64,10 @@ class AddInvestItemFragment : Fragment() {
                 val start_esset :Long? =root.start_asset_et.text.toString().toLongOrNull()
                 val finish_esset :Long? = root.finish_asset_et.text.toString().toLongOrNull()
                 if((start_esset!=null) and (finish_esset!= null) and (start_esset!=0L)){
-                     profit_asset= finish_esset!! - start_esset!!
-                     profit_percent = (Math.round(((finish_esset.toDouble() /start_esset) - 1) * 100)/100.0) *100
-                    root.profit_asset_tv.text = profit_asset.toString()+"원"
-                    root.profit_percent_tv.text = profit_percent.toString()+"%"
+                     var profit_asset= finish_esset!! - start_esset!!
+                     var profit_percent = (Math.round(((finish_esset.toDouble() /start_esset) - 1) * 100)/100.0) *100
+                    root.profit_asset_tv.text = profit_asset.toString()
+                    root.profit_percent_tv.text = profit_percent.toString()
                 }
             }
         }

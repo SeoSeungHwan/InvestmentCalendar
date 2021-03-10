@@ -9,6 +9,16 @@
 
 
     <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="40dp"
+        android:text="%"
+        app:layout_constraintBottom_toBottomOf="@+id/profit_percent_tv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/profit_percent_tv" />
+
+    <TextView
         android:id="@+id/line7"
         android:layout_width="match_parent"
         android:layout_height="1dp"
@@ -33,7 +43,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/id_tv"
+            android:id="@+id/start_asset_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
@@ -79,7 +89,7 @@
         app:layout_constraintTop_toBottomOf="@+id/line7">
 
         <TextView
-            android:id="@+id/pwd_tv"
+            android:id="@+id/finish_asset_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
@@ -134,11 +144,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:layout_marginEnd="40dp"
         android:gravity="center"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/textView"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/textView4"
         app:layout_constraintTop_toBottomOf="@+id/line8" />
 
 
@@ -149,4 +158,14 @@
         android:layout_marginTop="10dp"
         app:layout_constraintStart_toStartOf="@+id/profit_asset_tv"
         app:layout_constraintTop_toBottomOf="@+id/profit_asset_tv" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="40dp"
+        android:text="원"
+        app:layout_constraintBottom_toBottomOf="@+id/profit_asset_tv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/profit_asset_tv" />
 </androidx.constraintlayout.widget.ConstraintLayout>

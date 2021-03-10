@@ -1,25 +1,21 @@
 package com.router.investmentcalendar.ui.home
 
-import android.app.AlertDialog
+
 import android.content.ContentValues.TAG
-import android.content.DialogInterface
 import android.os.Build
 import android.os.Bundle
-import android.text.InputType
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import androidx.navigation.fragment.findNavController
+import com.applandeo.materialcalendarview.CalendarUtils
 import com.bumptech.glide.Glide
 import com.google.firebase.database.*
 import com.kakao.sdk.user.UserApiClient
-import com.router.investmentcalendar.AddInvestItemFragment
 import com.router.investmentcalendar.GlobalApplication
 import com.router.investmentcalendar.R
 import com.router.investmentcalendar.model.InvestItem
@@ -32,7 +28,7 @@ class HomeFragment : Fragment() {
 
 
     val database: FirebaseDatabase = FirebaseDatabase.getInstance()
-    val myRef: DatabaseReference = database.getReference("user")
+    val myRef: DatabaseReference = database.getReference(GlobalApplication.UserId)
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
@@ -47,29 +43,45 @@ class HomeFragment : Fragment() {
         updateKaKaoLoginUi()
 
 
-        //TODO 해당아이디 수익률 쫙불러와 달력에 수익률 표시하기
+        //TODO : 투자내역을 불러와 달력에 수익률 표시
+        myRef.get().addOnSuccessListener {
+                Log.d(TAG, "onCreateView: " + it.value)
 
-        //TODO 달력날짜 클릭시 해당 날짜 시작금액 마감금액 수익률 표시하기
+        }
+
+
         root.calendarView.setOnDayClickListener { eventDay ->
-          /*  myRef.child(GlobalApplication.UserId).child(getSelectDate(eventDay.calendar)).get()
+            myRef.child(getSelectDate(eventDay.calendar)).get()
                 .addOnSuccessListener { dataSnapShot ->
                     var investItem = dataSnapShot.getValue(InvestItem::class.java)
                     if (investItem != null) {
-                        asset_tv.text = investItem.asset
+                        date_tv.text = getSelectDate(eventDay.calendar)
+                        start_asset_tv.text = investItem.start_asset.toString()
+                        finish_asset_tv.text = investItem.finish_asset.toString()
+                        profit_asset_tv.text = investItem.profit_asset.toString()
+                        profit_percent_tv.text = investItem.profit_percent.toString()
                     } else {
-                        asset_tv.text =null
+                        start_asset_tv.text = null
+                        finish_asset_tv.text = null
+                        profit_asset_tv.text = null
+                        profit_percent_tv.text = null
+                        Toast.makeText(context, "투자내역을 불러오지 못했습니다.", Toast.LENGTH_SHORT).show()
                     }
 
                     //Log.d(TAG, "onCreateView: ${dataSnapShot.value}")
                 }.addOnFailureListener {
-                Log.d(TAG, "onCreateView: "+it.message)
-            }*/
+                    Log.d(TAG, "onCreateView: " + it.message)
+            }
         }
 
-        //TODO safeargs로 날짜 전달
         //자산추가 floating버튼 클릭 이벤트
         root.add_investmemo_btn.setOnClickListener {
-            findNavController().navigate(R.id.action_navigation_home_to_addInvestItemFragment)
+            val action = HomeFragmentDirections.actionNavigationHomeToAddInvestItemFragment(
+                getSelectDate(
+                    calendarView.firstSelectedDate
+                )
+            )
+            findNavController().navigate(action)
         }
         return root
     }
@@ -79,7 +91,7 @@ class HomeFragment : Fragment() {
         val year = calendar.get(Calendar.YEAR)
         val month = calendar.get(Calendar.MONTH) + 1
         val day = calendar.get(Calendar.DAY_OF_MONTH)
-        return "${year}.${month}.${day}"
+        return "${year}-${month}-${day}"
     }
 
     fun updateKaKaoLoginUi() {
