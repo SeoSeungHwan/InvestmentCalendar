@@ -1,6 +1,8 @@
 package com.router.investmentcalendar
 
 import android.app.Application
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.kakao.sdk.common.KakaoSdk
 import com.router.investmentcalendar.model.InvestItem
 
@@ -8,7 +10,6 @@ class GlobalApplication : Application() {
 
     companion object{
         var UserId = ""
-        var hashMap = HashMap<String,InvestItem>()
     }
     override fun onCreate() {
         super.onCreate()

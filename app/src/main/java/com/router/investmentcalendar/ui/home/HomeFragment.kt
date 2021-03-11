@@ -1,6 +1,7 @@
 package com.router.investmentcalendar.ui.home
 
 
+import android.content.ContentValues
 import android.content.ContentValues.TAG
 import android.os.Build
 import android.os.Bundle
@@ -12,23 +13,17 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.applandeo.materialcalendarview.CalendarUtils
-import com.bumptech.glide.Glide
-import com.google.firebase.database.*
-import com.kakao.sdk.user.UserApiClient
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
+import com.google.gson.Gson
 import com.router.investmentcalendar.GlobalApplication
 import com.router.investmentcalendar.R
 import com.router.investmentcalendar.model.InvestItem
-import kotlinx.android.synthetic.main.activity_login_acitivity.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
 import java.util.*
 
 class HomeFragment : Fragment() {
-
-
-    val database: FirebaseDatabase = FirebaseDatabase.getInstance()
-    val myRef: DatabaseReference = database.getReference(GlobalApplication.UserId)
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
@@ -36,44 +31,52 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
+        val db = Firebase.firestore
         val root = inflater.inflate(R.layout.fragment_home, container, false)
 
-        //사용자 이미지와 이름 추가
-        updateKaKaoLoginUi()
 
-
+        //TODO : 생명주기 확인 후 UserId값 받아오는거 구현
         //TODO : 투자내역을 불러와 달력에 수익률 표시
-        myRef.get().addOnSuccessListener {
-                Log.d(TAG, "onCreateView: " + it.value)
+        db.collection("1649161742")
+            .get()
+            .addOnSuccessListener { result ->
+                for (document in result) {
+                    Log.d(TAG, "${document.id} => ${document.data}")
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.d(TAG, "Error getting documents: ", exception)
+            }
 
-        }
 
 
         root.calendarView.setOnDayClickListener { eventDay ->
-            myRef.child(getSelectDate(eventDay.calendar)).get()
-                .addOnSuccessListener { dataSnapShot ->
-                    var investItem = dataSnapShot.getValue(InvestItem::class.java)
-                    if (investItem != null) {
-                        date_tv.text = getSelectDate(eventDay.calendar)
-                        start_asset_tv.text = investItem.start_asset.toString()
-                        finish_asset_tv.text = investItem.finish_asset.toString()
-                        profit_asset_tv.text = investItem.profit_asset.toString()
-                        profit_percent_tv.text = investItem.profit_percent.toString()
-                    } else {
-                        start_asset_tv.text = null
-                        finish_asset_tv.text = null
-                        profit_asset_tv.text = null
-                        profit_percent_tv.text = null
-                        Toast.makeText(context, "투자내역을 불러오지 못했습니다.", Toast.LENGTH_SHORT).show()
-                    }
+            val user =
+                db.collection(GlobalApplication.UserId).document(getSelectDate(eventDay.calendar))
+            user.get().addOnSuccessListener {
+                date_tv.text = getSelectDate(eventDay.calendar)
 
-                    //Log.d(TAG, "onCreateView: ${dataSnapShot.value}")
-                }.addOnFailureListener {
-                    Log.d(TAG, "onCreateView: " + it.message)
+
+                var gson = Gson()
+                val investItem = gson.fromJson(it.data.toString(), InvestItem::class.java)
+                if (investItem != null) {
+                    start_asset_tv.text = investItem.start_asset.toString()
+                    finish_asset_tv.text = investItem.finish_asset.toString()
+                    profit_asset_tv.text = investItem.profit_asset.toString()
+                    profit_percent_tv.text = investItem.profit_percent.toString()
+                } else {
+                    start_asset_tv.text = null
+                    finish_asset_tv.text = null
+                    profit_asset_tv.text = null
+
+
+                    profit_percent_tv.text = null
+                    Toast.makeText(context, "투자내역을 불러오지 못했습니다.", Toast.LENGTH_SHORT).show()
+                }
             }
         }
 
+        //TODO 날짜클릭안하고 누를시 오류 해결
         //자산추가 floating버튼 클릭 이벤트
         root.add_investmemo_btn.setOnClickListener {
             val action = HomeFragmentDirections.actionNavigationHomeToAddInvestItemFragment(
@@ -94,18 +97,5 @@ class HomeFragment : Fragment() {
         return "${year}-${month}-${day}"
     }
 
-    fun updateKaKaoLoginUi() {
-        UserApiClient.instance.me { user, error ->
-            if (user != null) {
-                user_name_tv.text = user.kakaoAccount?.profile?.nickname + "님 환영합니다."
-                Glide.with(user_profile_iv).load(user.kakaoAccount?.profile?.thumbnailImageUrl)
-                    .circleCrop().into(user_profile_iv)
-            } else {
-                user_name_tv.text = null
-                user_profile_iv.setImageBitmap(null)
-            }
-            return@me
-        }
-    }
 
 }

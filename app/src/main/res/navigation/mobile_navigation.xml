@@ -17,9 +17,9 @@
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="com.router.investmentcalendar.ui.dashboard.DashboardFragment"
+        android:name="com.router.investmentcalendar.ui.list.ListFragment"
         android:label="@string/title_list"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_list" />
 
     <fragment
         android:id="@+id/navigation_notifications"
