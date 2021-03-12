@@ -1,8 +1,8 @@
 package com.router.investmentcalendar.ui.home
 
 
-import android.content.ContentValues
 import android.content.ContentValues.TAG
+import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -13,6 +13,8 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.applandeo.materialcalendarview.CalendarUtils
+import com.applandeo.materialcalendarview.EventDay
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.gson.Gson
@@ -22,6 +24,8 @@ import com.router.investmentcalendar.model.InvestItem
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
 import java.util.*
+import kotlin.collections.ArrayList
+
 
 class HomeFragment : Fragment() {
 
@@ -33,22 +37,43 @@ class HomeFragment : Fragment() {
     ): View? {
         val db = Firebase.firestore
         val root = inflater.inflate(R.layout.fragment_home, container, false)
+        val gson = Gson()
 
 
         //TODO : 생명주기 확인 후 UserId값 받아오는거 구현
         //TODO : 투자내역을 불러와 달력에 수익률 표시
-        db.collection("1649161742")
+        val events = ArrayList<EventDay>()
+
+
+
+        db.collection(GlobalApplication.UserId)
             .get()
             .addOnSuccessListener { result ->
                 for (document in result) {
-                    Log.d(TAG, "${document.id} => ${document.data}")
+                    Log.d(GlobalApplication.UserId, "${document.id} => ${document.data}")
+                    val investItem = gson.fromJson(document.data.toString(), InvestItem::class.java)
+                    val profit_text : Drawable
+                    if(investItem.profit_percent>=0){
+                        profit_text = CalendarUtils.getDrawableText(
+                            activity, "+", null, android.R.color.holo_green_light, 30
+                        )
+                    }else{
+                        profit_text= CalendarUtils.getDrawableText(
+                            activity, "-", null, android.R.color.holo_red_light, 30
+                        )
+                    }
+
+                    var dateArr = document.id.split("-")
+                    val calendar = Calendar.getInstance()
+                    calendar.set(dateArr[0].toInt(),dateArr[1].toInt()-1,dateArr[2].toInt())
+                    events.add(EventDay(calendar,profit_text))
+                    calendarView.setEvents(events)
+
                 }
             }
             .addOnFailureListener { exception ->
                 Log.d(TAG, "Error getting documents: ", exception)
             }
-
-
 
         root.calendarView.setOnDayClickListener { eventDay ->
             val user =
@@ -57,7 +82,7 @@ class HomeFragment : Fragment() {
                 date_tv.text = getSelectDate(eventDay.calendar)
 
 
-                var gson = Gson()
+
                 val investItem = gson.fromJson(it.data.toString(), InvestItem::class.java)
                 if (investItem != null) {
                     start_asset_tv.text = investItem.start_asset.toString()
