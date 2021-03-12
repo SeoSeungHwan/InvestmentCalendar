@@ -18,6 +18,7 @@ class InvestListRecyclerViewAdapter(private val dataSet: ArrayList<InvestItem>) 
         val finish_asset_tv: TextView
         val profit_asset_tv: TextView
         val profit_percent_tv : TextView
+        val item_date_tv : TextView
 
 
         init {
@@ -25,6 +26,7 @@ class InvestListRecyclerViewAdapter(private val dataSet: ArrayList<InvestItem>) 
             finish_asset_tv = view.findViewById(R.id.item_finishasset_tv)
             profit_asset_tv = view.findViewById(R.id.item_profitasset_tv)
             profit_percent_tv = view.findViewById(R.id.item_profitpercent_tv)
+            item_date_tv = view.findViewById(R.id.item_date_tv)
         }
     }
 
@@ -41,6 +43,7 @@ class InvestListRecyclerViewAdapter(private val dataSet: ArrayList<InvestItem>) 
         viewHolder.finish_asset_tv.text = dataSet[position].finish_asset.toString()+"원"
         viewHolder.profit_asset_tv.text = dataSet[position].profit_asset.toString()+"원"
         viewHolder.profit_percent_tv.text = dataSet[position].profit_percent.toString()+"%"
+        viewHolder.item_date_tv.text = dataSet[position].date
     }
     override fun getItemCount() = dataSet.size
 

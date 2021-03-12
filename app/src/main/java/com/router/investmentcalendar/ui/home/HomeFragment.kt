@@ -23,6 +23,7 @@ import com.router.investmentcalendar.R
 import com.router.investmentcalendar.model.InvestItem
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
+import java.lang.Exception
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -40,8 +41,6 @@ class HomeFragment : Fragment() {
         val gson = Gson()
 
 
-        //TODO : 생명주기 확인 후 UserId값 받아오는거 구현
-        //TODO : 투자내역을 불러와 달력에 수익률 표시
         val events = ArrayList<EventDay>()
 
 
@@ -76,12 +75,9 @@ class HomeFragment : Fragment() {
             }
 
         root.calendarView.setOnDayClickListener { eventDay ->
-            val user =
-                db.collection(GlobalApplication.UserId).document(getSelectDate(eventDay.calendar))
+            val user = db.collection(GlobalApplication.UserId).document(getSelectDate(eventDay.calendar))
             user.get().addOnSuccessListener {
                 date_tv.text = getSelectDate(eventDay.calendar)
-
-
 
                 val investItem = gson.fromJson(it.data.toString(), InvestItem::class.java)
                 if (investItem != null) {
@@ -101,15 +97,19 @@ class HomeFragment : Fragment() {
             }
         }
 
-        //TODO 날짜클릭안하고 누를시 오류 해결
         //자산추가 floating버튼 클릭 이벤트
         root.add_investmemo_btn.setOnClickListener {
-            val action = HomeFragmentDirections.actionNavigationHomeToAddInvestItemFragment(
-                getSelectDate(
-                    calendarView.firstSelectedDate
+            try {
+                val action = HomeFragmentDirections.actionNavigationHomeToAddInvestItemFragment(
+                    getSelectDate(
+                        calendarView.firstSelectedDate
+                    )
                 )
-            )
-            findNavController().navigate(action)
+                findNavController().navigate(action)
+            }catch (e : Exception){
+                Toast.makeText(context, "날짜를 선택해주세요", Toast.LENGTH_SHORT).show()
+            }
+
         }
         return root
     }
