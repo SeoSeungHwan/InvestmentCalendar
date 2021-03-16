@@ -51,8 +51,9 @@ class LoginAcitivity : AppCompatActivity() {
         UserApiClient.instance.me { user, error ->
             if (user != null) {
              GlobalApplication.UserId = user.id.toString()
+                Log.d("TEST", "updateKaKaoUserId: "+ user.id.toString())
             } else {
-                GlobalApplication.UserId = null.toString()
+
             }
             return@me
         }

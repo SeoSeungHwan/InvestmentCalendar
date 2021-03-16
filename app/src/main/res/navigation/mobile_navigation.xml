@@ -23,9 +23,9 @@
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="com.router.investmentcalendar.ui.notifications.NotificationsFragment"
+        android:name="com.router.investmentcalendar.ui.chart.ChartFragment"
         android:label="@string/title_chart"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_chart" />
     <fragment
         android:id="@+id/addInvestItemFragment"
         android:name="com.router.investmentcalendar.AddInvestItemFragment"

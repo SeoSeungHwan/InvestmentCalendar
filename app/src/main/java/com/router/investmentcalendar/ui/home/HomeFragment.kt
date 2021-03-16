@@ -2,6 +2,7 @@ package com.router.investmentcalendar.ui.home
 
 
 import android.content.ContentValues.TAG
+import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Bundle
@@ -24,6 +25,7 @@ import com.router.investmentcalendar.model.InvestItem
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
 import java.lang.Exception
+import java.text.DecimalFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -80,11 +82,22 @@ class HomeFragment : Fragment() {
                 date_tv.text = getSelectDate(eventDay.calendar)
 
                 val investItem = gson.fromJson(it.data.toString(), InvestItem::class.java)
+                var decimalFormat = DecimalFormat("###,###")
                 if (investItem != null) {
-                    start_asset_tv.text = investItem.start_asset.toString()
-                    finish_asset_tv.text = investItem.finish_asset.toString()
-                    profit_asset_tv.text = investItem.profit_asset.toString()
-                    profit_percent_tv.text = investItem.profit_percent.toString()
+                    start_asset_tv.text = decimalFormat.format(investItem.start_asset).toString()
+                    finish_asset_tv.text = decimalFormat.format(investItem.finish_asset).toString()
+
+                    if(investItem.profit_percent>=0){
+                        profit_asset_tv.text = "+"+decimalFormat.format(investItem.profit_asset).toString()
+                        profit_percent_tv.text = "+"+investItem.profit_percent.toString()
+                        profit_asset_tv.setTextColor(Color.parseColor("#4CAF50"))
+                        profit_percent_tv.setTextColor(Color.parseColor("#4CAF50"))
+                    }else {
+                        profit_asset_tv.text = decimalFormat.format(investItem.profit_asset).toString()
+                        profit_percent_tv.text = investItem.profit_percent.toString()
+                        profit_asset_tv.setTextColor(Color.parseColor("#F44336"))
+                        profit_percent_tv.setTextColor(Color.parseColor("#F44336"))
+                    }
                 } else {
                     start_asset_tv.text = null
                     finish_asset_tv.text = null
