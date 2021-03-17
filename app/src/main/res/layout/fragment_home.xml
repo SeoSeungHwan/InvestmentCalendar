@@ -228,4 +228,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/date_tv" />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/remove_investmemo_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_weight="1"
+        android:clickable="true"
+        android:backgroundTint="@color/lossColor"
+        android:src="@drawable/ic_baseline_remove_24"
+        app:layout_constraintBottom_toTopOf="@+id/add_investmemo_btn"
+        app:layout_constraintEnd_toEndOf="@+id/add_investmemo_btn"
+        app:layout_constraintStart_toStartOf="@+id/add_investmemo_btn" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

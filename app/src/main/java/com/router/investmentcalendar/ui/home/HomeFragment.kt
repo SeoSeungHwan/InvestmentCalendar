@@ -32,6 +32,8 @@ import kotlin.collections.ArrayList
 
 class HomeFragment : Fragment() {
 
+    val viewModel = HomeFragmentViewModel()
+
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,40 +44,10 @@ class HomeFragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_home, container, false)
         val gson = Gson()
 
+        //캘린더 수익률 표시
+        viewModel.fetchInvestCollection()
 
-        val events = ArrayList<EventDay>()
-
-
-
-        db.collection(GlobalApplication.UserId)
-            .get()
-            .addOnSuccessListener { result ->
-                for (document in result) {
-                    Log.d(GlobalApplication.UserId, "${document.id} => ${document.data}")
-                    val investItem = gson.fromJson(document.data.toString(), InvestItem::class.java)
-                    val profit_text : Drawable
-                    if(investItem.profit_percent>=0){
-                        profit_text = CalendarUtils.getDrawableText(
-                            activity, "+", null, android.R.color.holo_green_light, 30
-                        )
-                    }else{
-                        profit_text= CalendarUtils.getDrawableText(
-                            activity, "-", null, android.R.color.holo_red_light, 30
-                        )
-                    }
-
-                    var dateArr = document.id.split("-")
-                    val calendar = Calendar.getInstance()
-                    calendar.set(dateArr[0].toInt(),dateArr[1].toInt()-1,dateArr[2].toInt())
-                    events.add(EventDay(calendar,profit_text))
-                    calendarView.setEvents(events)
-
-                }
-            }
-            .addOnFailureListener { exception ->
-                Log.d(TAG, "Error getting documents: ", exception)
-            }
-
+        //CalendarView 클릭시 해당 날짜 투자내역 show
         root.calendarView.setOnDayClickListener { eventDay ->
             val user = db.collection(GlobalApplication.UserId).document(getSelectDate(eventDay.calendar))
             user.get().addOnSuccessListener {
@@ -84,6 +56,7 @@ class HomeFragment : Fragment() {
                 val investItem = gson.fromJson(it.data.toString(), InvestItem::class.java)
                 var decimalFormat = DecimalFormat("###,###")
                 if (investItem != null) {
+                    root.remove_investmemo_btn.visibility = View.VISIBLE
                     start_asset_tv.text = decimalFormat.format(investItem.start_asset).toString()
                     finish_asset_tv.text = decimalFormat.format(investItem.finish_asset).toString()
 
@@ -99,13 +72,12 @@ class HomeFragment : Fragment() {
                         profit_percent_tv.setTextColor(Color.parseColor("#F44336"))
                     }
                 } else {
+                    root.remove_investmemo_btn.visibility = View.INVISIBLE
                     start_asset_tv.text = null
                     finish_asset_tv.text = null
                     profit_asset_tv.text = null
-
-
                     profit_percent_tv.text = null
-                    Toast.makeText(context, "투자내역을 불러오지 못했습니다.", Toast.LENGTH_SHORT).show()
+
                 }
             }
         }
@@ -124,6 +96,18 @@ class HomeFragment : Fragment() {
             }
 
         }
+
+        //TODO 투자내역삭제해도 바로 달력에서 사라지지 않음
+        //자산삭제 floating버튼 클릭 이벤트
+        root.remove_investmemo_btn.setOnClickListener {
+            db.collection(GlobalApplication.UserId).document(getSelectDate(calendarView.firstSelectedDate))
+                .delete()
+                .addOnSuccessListener {
+                    viewModel.fetchInvestCollection()
+                    Toast.makeText(context, "투자내역이 삭제되었습니다.", Toast.LENGTH_SHORT).show() }
+                .addOnFailureListener { e -> Log.w(TAG, "Error deleting document", e) }
+
+        }
         return root
     }
 
@@ -135,5 +119,33 @@ class HomeFragment : Fragment() {
         return "${year}-${month}-${day}"
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        //TODO Viewmodel에서 activity 얻어오기 구현
+        val gson = Gson()
+        val events = ArrayList<EventDay>()
+        viewModel.investCollection.observe(viewLifecycleOwner, androidx.lifecycle.Observer {result->
+            for (document in result) {
+                Log.d(GlobalApplication.UserId, "${document.id} => ${document.data}")
+                val investItem = gson.fromJson(document.data.toString(), InvestItem::class.java)
+                val profit_text : Drawable
+                if(investItem.profit_percent>=0){
+                    profit_text = CalendarUtils.getDrawableText(
+                        activity, investItem.profit_percent.toInt().toString()+"%", null, android.R.color.holo_green_light, 9
+                    )
+                }else{
+                    profit_text= CalendarUtils.getDrawableText(
+                        activity, investItem.profit_percent.toInt().toString()+"%", null, android.R.color.holo_red_light, 9
+                    )
+                }
+
+                var dateArr = document.id.split("-")
+                val calendar = Calendar.getInstance()
+                calendar.set(dateArr[0].toInt(),dateArr[1].toInt()-1,dateArr[2].toInt())
+                events.add(EventDay(calendar,profit_text))
+                calendarView.setEvents(events)
+            }
+        })
+    }
 
 }
