@@ -18,11 +18,11 @@ import kotlinx.android.synthetic.main.fragment_list.view.*
 class ListFragment : Fragment() {
 
     val viewModel: ListFragmentViewModel by viewModels()
-    var root :View? = null
+    var root: View? = null
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
 
         root = inflater.inflate(R.layout.fragment_list, container, false)
