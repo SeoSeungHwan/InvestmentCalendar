@@ -58,7 +58,7 @@ class MainActivity : AppCompatActivity() {
     fun updateKaKaoLoginUi() {
         UserApiClient.instance.me { user, error ->
             if (user != null) {
-                user_name_tv.text = user.kakaoAccount?.profile?.nickname + "님 환영합니다."
+                user_name_tv.text = user.kakaoAccount?.profile?.nickname + " 님"
                 Glide.with(user_profile_iv).load(user.kakaoAccount?.profile?.thumbnailImageUrl)
                     .circleCrop().into(user_profile_iv)
             } else {

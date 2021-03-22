@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.fragment.findNavController
 import com.applandeo.materialcalendarview.CalendarUtils
 import com.applandeo.materialcalendarview.EventDay
@@ -102,10 +103,17 @@ class HomeFragment : Fragment() {
                 .delete()
                 .addOnSuccessListener {
                     viewModel.fetchInvestCollection()
-                    Toast.makeText(context, "투자내역이 삭제되었습니다.", Toast.LENGTH_SHORT).show() }
+                    Toast.makeText(context, "투자내역이 삭제되었습니다.", Toast.LENGTH_SHORT).show()
+                    root.start_asset_tv.text = null
+                    root.finish_asset_tv.text =null
+                    root.profit_percent_tv.text = null
+                    root.profit_asset_tv.text =null
+                }
                 .addOnFailureListener { e -> Log.w(TAG, "Error deleting document", e) }
             viewModel.fetchInvestCollection()
         }
+
+
         return root
     }
 
@@ -119,6 +127,7 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
+        //캘린더에 투자내역 나타나게 하기
         val events = ArrayList<EventDay>()
         viewModel.investCollection.observe(viewLifecycleOwner,
             androidx.lifecycle.Observer { result ->
@@ -152,6 +161,16 @@ class HomeFragment : Fragment() {
                     calendarView.setEvents(events)
                 }
             })
+
+        //데이터 가져올때까지 Progressbar 나타나게하기
+        viewModel.loadingLiveData.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            if (it) {
+                progressBar.bringToFront()
+                progressBar.visibility = View.VISIBLE
+            } else {
+                progressBar.visibility = View.GONE
+            }
+        })
     }
 
 }

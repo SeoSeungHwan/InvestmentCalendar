@@ -7,6 +7,17 @@
     tools:context=".ui.home.HomeFragment">
 
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="40dp"
+        android:layout_height="50dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/calendarView"
+        tools:visibility="invisible" />
 
     <com.applandeo.materialcalendarview.CalendarView
         android:id="@+id/calendarView"
@@ -15,26 +26,40 @@
         app:headerColor="@color/mainColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+
+    </com.applandeo.materialcalendarview.CalendarView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/add_investmemo_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="30dp"
-        android:layout_marginBottom="30dp"
-        android:clickable="true"
         android:backgroundTint="@color/mainColor"
+        android:clickable="true"
         android:src="@drawable/ic_baseline_add_24"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintBottom_toBottomOf="@+id/linearLayout3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/remove_investmemo_btn" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="30dp"
+        android:background="@color/mainColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/date_tv" />
 
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="5dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -48,7 +73,7 @@
             android:gravity="center"
             android:text="시작 금액"
             android:textColor="#9E9E9E"
-            android:textSize="20sp" />
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/start_asset_tv"
@@ -58,7 +83,7 @@
             android:gravity="center"
             android:paddingLeft="15dp"
             android:textColor="#000000"
-            android:textSize="15sp" />
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/won_text"
@@ -78,7 +103,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="5dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -92,7 +116,7 @@
             android:gravity="center"
             android:text="마감 금액"
             android:textColor="#9E9E9E"
-            android:textSize="20sp" />
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/finish_asset_tv"
@@ -102,7 +126,7 @@
             android:gravity="center"
             android:paddingLeft="15dp"
             android:textColor="#000000"
-            android:textSize="15sp" />
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/textView24"
@@ -122,7 +146,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="5dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -136,7 +159,7 @@
             android:gravity="center"
             android:text="손익 금액"
             android:textColor="#9E9E9E"
-            android:textSize="20sp" />
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/profit_asset_tv"
@@ -146,7 +169,7 @@
             android:gravity="center"
             android:paddingLeft="15dp"
             android:textColor="#000000"
-            android:textSize="15sp" />
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/won22"
@@ -165,7 +188,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="5dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -179,7 +201,7 @@
             android:gravity="center"
             android:text="손익 률 "
             android:textColor="#9E9E9E"
-            android:textSize="20sp" />
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/profit_percent_tv"
@@ -189,7 +211,7 @@
             android:gravity="center"
             android:paddingLeft="15dp"
             android:textColor="#000000"
-            android:textSize="15sp" />
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/textView3"
@@ -212,33 +234,22 @@
         android:fontFamily="@font/hanygo230"
         android:text="오늘 날짜"
         android:textColor="#757575"
-        android:textSize="20sp"
+        android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/calendarView" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="30dp"
-        android:background="@color/mainColor"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/date_tv" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/remove_investmemo_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
         android:layout_weight="1"
-        android:clickable="true"
         android:backgroundTint="@color/lossColor"
+        android:clickable="true"
         android:src="@drawable/ic_baseline_remove_24"
-        app:layout_constraintBottom_toTopOf="@+id/add_investmemo_btn"
         app:layout_constraintEnd_toEndOf="@+id/add_investmemo_btn"
-        app:layout_constraintStart_toStartOf="@+id/add_investmemo_btn" />
+        app:layout_constraintStart_toStartOf="@+id/add_investmemo_btn"
+        app:layout_constraintTop_toBottomOf="@+id/date_tv" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

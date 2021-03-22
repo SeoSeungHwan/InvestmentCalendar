@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.router.investmentcalendar.R
 import com.router.investmentcalendar.model.InvestItem
@@ -23,7 +24,7 @@ class InvestListRecyclerViewAdapter(private val dataSet: ArrayList<InvestItem>) 
         val profit_asset_tv: TextView
         val profit_percent_tv : TextView
         val item_date_tv : TextView
-        val item_linearlayout : LinearLayout
+        val item_linearlayout : ConstraintLayout
 
 
         init {
@@ -51,11 +52,15 @@ class InvestListRecyclerViewAdapter(private val dataSet: ArrayList<InvestItem>) 
         viewHolder.start_asset_tv.text = decimalFormat.format(dataSet[position].start_asset).toString()+"원"
         viewHolder.finish_asset_tv.text = decimalFormat.format(dataSet[position].finish_asset).toString()+"원"
         if(dataSet[position].profit_percent>=0){
-            viewHolder.item_linearlayout.setBackgroundColor(Color.parseColor("#4CAF50"))
+            viewHolder.item_linearlayout.setBackgroundColor(Color.parseColor("#BBDEFB"))
+            viewHolder.profit_percent_tv.setTextColor(Color.parseColor("#4CAF50"))
+            viewHolder.profit_asset_tv.setTextColor(Color.parseColor("#4CAF50"))
             viewHolder.profit_asset_tv.text = "+"+decimalFormat.format(dataSet[position].profit_asset).toString()+"원"
             viewHolder.profit_percent_tv.text = "+"+dataSet[position].profit_percent.toString()+"%"
         }else{
-            viewHolder.item_linearlayout.setBackgroundColor(Color.parseColor("#F44336"))
+            viewHolder.item_linearlayout.setBackgroundColor(Color.parseColor("#FFCCBC"))
+            viewHolder.profit_percent_tv.setTextColor(Color.parseColor("#E91E63"))
+            viewHolder.profit_asset_tv.setTextColor(Color.parseColor("#E91E63"))
             viewHolder.profit_asset_tv.text = decimalFormat.format(dataSet[position].profit_asset).toString()+"원"
             viewHolder.profit_percent_tv.text = dataSet[position].profit_percent.toString()+"%"
         }

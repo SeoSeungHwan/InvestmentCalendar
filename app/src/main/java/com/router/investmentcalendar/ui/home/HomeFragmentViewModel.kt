@@ -15,11 +15,14 @@ class HomeFragmentViewModel : ViewModel() {
     val db = Firebase.firestore
     val investCollection = MutableLiveData<QuerySnapshot>()
 
+    val loadingLiveData = MutableLiveData<Boolean>()
     fun fetchInvestCollection(){
+        loadingLiveData.value = true
         db.collection(GlobalApplication.UserId)
             .get()
             .addOnSuccessListener { result ->
                 investCollection.value = result
+                loadingLiveData.postValue(false)
             }
             .addOnFailureListener { exception ->
                 Log.d(ContentValues.TAG, "Error getting documents: ", exception)

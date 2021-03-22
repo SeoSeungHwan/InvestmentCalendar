@@ -61,7 +61,7 @@ class AddInvestItemFragment : Fragment() {
                     var profit_percent =
                         (Math.round(((finish_esset.toDouble() / start_esset) - 1) * 100) / 100.0) * 100
                     root.profit_asset_tv.text = profit_asset.toString()
-                    root.profit_percent_tv.text = profit_percent.toString()
+                    root.profit_percent_tv.text = String.format("%.2f",profit_percent)
                 }
             }
         }
