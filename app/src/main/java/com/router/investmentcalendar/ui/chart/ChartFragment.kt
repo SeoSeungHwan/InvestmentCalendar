@@ -36,14 +36,14 @@ class ChartFragment : Fragment() {
         val values: ArrayList<Entry> = ArrayList()
         viewModel.fetchWeekDate()
         viewModel.mutableLiveDataArrayList.observe(viewLifecycleOwner, Observer {
-            var xIndex =0.0f
+            var xIndex = 0.0f
             it.forEach {
                 val dateArr = it.date.split("-")
                 val calendar = Calendar.getInstance()
                 calendar.set(dateArr[0].toInt(), dateArr[1].toInt() - 1, dateArr[2].toInt())
                 values.add(Entry(xIndex,
                     it.profit_asset.toFloat()))
-                xIndex+=1
+                xIndex += 1
             }
             val set1 = LineDataSet(values, "DataSet 1")
 
@@ -62,56 +62,17 @@ class ChartFragment : Fragment() {
 
         })
         val set1 = LineDataSet(values, "DataSet 1")
-
         val dataSets: ArrayList<ILineDataSet> = ArrayList()
         dataSets.add(set1) // add the data sets
-
         val data = LineData(dataSets)
-
         set1.color = Color.BLACK
         set1.setCircleColor(Color.BLACK)
-
         root.chart.setData(data)
-
-
 
 
         return root
     }
-
 }
-/* val values: ArrayList<Entry> = ArrayList()
-
- for (i in 0..9) {
-     val `val` = (Math.random() * 10).toFloat()
-     values.add(Entry(i.toFloat(), `val`))
- }
-
- it.forEach { investItem ->
-     Log.d(TAG, "onViewCreated: "+investItem.date)
-     var dateArr = investItem.date.split("-")
-     val calendar = Calendar.getInstance()
-     calendar.set(dateArr[0].toInt(), dateArr[1].toInt() - 1, dateArr[2].toInt())
-     val num = (Math.random() * 10).toFloat()
-     values.add(Entry(num,
-         investItem.profit_asset.toFloat()))
-
- }
-
- val set1: LineDataSet
- set1 = LineDataSet(values, "DataSet 1")
-
- val dataSets: ArrayList<ILineDataSet> = ArrayList()
- dataSets.add(set1) // add the data sets
-
- val data = LineData(dataSets)
-
-
- set1.color = Color.BLACK
- set1.setCircleColor(Color.BLACK)
-
- root?.chart?.data = data
-})*/
 
 
 

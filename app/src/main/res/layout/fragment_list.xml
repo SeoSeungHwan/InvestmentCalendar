@@ -40,11 +40,6 @@
             android:layout_weight="1"
             android:text="손익 순" />
 
-        <Spinner
-            android:id="@+id/date_spinner"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
     </RadioGroup>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

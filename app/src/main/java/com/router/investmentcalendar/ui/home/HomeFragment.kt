@@ -43,7 +43,6 @@ class HomeFragment : Fragment() {
 
         val root = inflater.inflate(R.layout.fragment_home, container, false)
 
-
         //캘린더 수익률 표시
         viewModel.fetchInvestCollection()
 
@@ -73,10 +72,7 @@ class HomeFragment : Fragment() {
                     }
                 } else {
                     root.remove_investmemo_btn.visibility = View.INVISIBLE
-                    start_asset_tv.text = null
-                    finish_asset_tv.text = null
-                    profit_asset_tv.text = null
-                    profit_percent_tv.text = null
+                    investTextSetNull()
 
                 }
             }
@@ -104,16 +100,11 @@ class HomeFragment : Fragment() {
                 .addOnSuccessListener {
                     viewModel.fetchInvestCollection()
                     Toast.makeText(context, "투자내역이 삭제되었습니다.", Toast.LENGTH_SHORT).show()
-                    root.start_asset_tv.text = null
-                    root.finish_asset_tv.text =null
-                    root.profit_percent_tv.text = null
-                    root.profit_asset_tv.text =null
+                    investTextSetNull()
                 }
                 .addOnFailureListener { e -> Log.w(TAG, "Error deleting document", e) }
             viewModel.fetchInvestCollection()
         }
-
-
         return root
     }
 
@@ -123,6 +114,13 @@ class HomeFragment : Fragment() {
         val month = calendar.get(Calendar.MONTH) + 1
         val day = calendar.get(Calendar.DAY_OF_MONTH)
         return "${year}-${month}-${day}"
+    }
+
+    fun investTextSetNull(){
+        start_asset_tv.text = null
+        finish_asset_tv.text =null
+        profit_percent_tv.text = null
+        profit_asset_tv.text =null
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -147,7 +145,7 @@ class HomeFragment : Fragment() {
                     } else {
                         profit_text = CalendarUtils.getDrawableText(
                             activity,
-                            investItem.profit_percent.toInt().toString() + "%",
+                            (investItem.profit_percent.toInt()*-1).toString() + "%",
                             null,
                             android.R.color.holo_red_light,
                             9

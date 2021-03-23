@@ -1,9 +1,11 @@
 package com.router.investmentcalendar
 
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -59,9 +61,10 @@ class AddInvestItemFragment : Fragment() {
                 if ((start_esset != null) and (finish_esset != null) and (start_esset != 0L)) {
                     var profit_asset = finish_esset!! - start_esset!!
                     var profit_percent =
-                        (Math.round(((finish_esset.toDouble() / start_esset) - 1) * 100) / 100.0) * 100
+                        (Math.round(((finish_esset.toDouble() / start_esset) - 1) * 1000) / 1000.0) * 100
+                    Log.d(TAG, "onTextChanged: "+finish_esset.toDouble() / start_esset)
                     root.profit_asset_tv.text = profit_asset.toString()
-                    root.profit_percent_tv.text = String.format("%.2f",profit_percent)
+                    root.profit_percent_tv.text = profit_percent.toString()
                 }
             }
         }

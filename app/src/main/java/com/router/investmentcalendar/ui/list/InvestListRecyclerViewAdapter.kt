@@ -52,13 +52,13 @@ class InvestListRecyclerViewAdapter(private val dataSet: ArrayList<InvestItem>) 
         viewHolder.start_asset_tv.text = decimalFormat.format(dataSet[position].start_asset).toString()+"원"
         viewHolder.finish_asset_tv.text = decimalFormat.format(dataSet[position].finish_asset).toString()+"원"
         if(dataSet[position].profit_percent>=0){
-            viewHolder.item_linearlayout.setBackgroundColor(Color.parseColor("#BBDEFB"))
+            viewHolder.item_linearlayout.setBackgroundColor(Color.parseColor("#D4E9CE"))
             viewHolder.profit_percent_tv.setTextColor(Color.parseColor("#4CAF50"))
             viewHolder.profit_asset_tv.setTextColor(Color.parseColor("#4CAF50"))
             viewHolder.profit_asset_tv.text = "+"+decimalFormat.format(dataSet[position].profit_asset).toString()+"원"
             viewHolder.profit_percent_tv.text = "+"+dataSet[position].profit_percent.toString()+"%"
         }else{
-            viewHolder.item_linearlayout.setBackgroundColor(Color.parseColor("#FFCCBC"))
+            viewHolder.item_linearlayout.setBackgroundColor(Color.parseColor("#E8CFCF"))
             viewHolder.profit_percent_tv.setTextColor(Color.parseColor("#E91E63"))
             viewHolder.profit_asset_tv.setTextColor(Color.parseColor("#E91E63"))
             viewHolder.profit_asset_tv.text = decimalFormat.format(dataSet[position].profit_asset).toString()+"원"
