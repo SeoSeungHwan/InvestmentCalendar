@@ -18,6 +18,7 @@ class HomeFragmentViewModel : ViewModel() {
     val loadingLiveData = MutableLiveData<Boolean>()
     fun fetchInvestCollection(){
         loadingLiveData.value = true
+        Log.d(TAG, "fetchInvestCollection: "+ GlobalApplication.UserId)
         db.collection(GlobalApplication.UserId)
             .get()
             .addOnSuccessListener { result ->

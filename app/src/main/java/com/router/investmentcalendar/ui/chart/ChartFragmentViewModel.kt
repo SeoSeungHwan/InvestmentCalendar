@@ -18,8 +18,9 @@ class ChartFragmentViewModel : ViewModel() {
 
     val arraylist = ArrayList<InvestItem>()
     val mutableLiveDataArrayList = MutableLiveData<ArrayList<InvestItem>>()
-
+    val loadingLiveData = MutableLiveData<Boolean>()
     fun fetchWeekDate(){
+        loadingLiveData.value = true
         arraylist.clear()
         db.collection(GlobalApplication.UserId)
             .get()
@@ -30,6 +31,7 @@ class ChartFragmentViewModel : ViewModel() {
                     arraylist.add(investItem)
                 }
                 mutableLiveDataArrayList.value = arraylist
+                loadingLiveData.postValue(false)
             }
             .addOnFailureListener { exception ->
                 Log.d(ContentValues.TAG, "Error getting documents: ", exception)

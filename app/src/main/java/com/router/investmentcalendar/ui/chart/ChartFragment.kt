@@ -15,16 +15,17 @@ import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import com.router.investmentcalendar.R
+import kotlinx.android.synthetic.main.fragment_chart.*
 import kotlinx.android.synthetic.main.fragment_chart.view.*
+import kotlinx.android.synthetic.main.fragment_home.*
 import java.util.*
 import kotlin.collections.ArrayList
 
 
 class ChartFragment : Fragment() {
 
-
     val viewModel = ChartFragmentViewModel()
-    var root: View? = null
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -45,30 +46,41 @@ class ChartFragment : Fragment() {
                     it.profit_asset.toFloat()))
                 xIndex += 1
             }
-            val set1 = LineDataSet(values, "DataSet 1")
+            val set1 = LineDataSet(values, "일일 수익률 변화")
 
             val dataSets: ArrayList<ILineDataSet> = ArrayList()
             dataSets.add(set1) // add the data sets
-
-            val data = LineData(dataSets)
 
             set1.color = Color.BLACK
             set1.setCircleColor(Color.BLACK)
             set1.mode = LineDataSet.Mode.CUBIC_BEZIER
             set1.setDrawFilled(true)
+            set1.setDrawCircleHole(true)
+
+            val xAxis = root.chart.xAxis
+            xAxis.textColor = Color.BLACK
+            xAxis.setDrawGridLines(false)
+
+            val yAxis = root.chart.axisRight
+            yAxis.setDrawGridLines(false)
+
+            val data = LineData(dataSets)
             root.chart.setData(data)
+            root.chart.description.text = ""
 
-            Log.d(TAG, "onCreateView: ss")
-
+            root.chart.invalidate()
         })
-        val set1 = LineDataSet(values, "DataSet 1")
-        val dataSets: ArrayList<ILineDataSet> = ArrayList()
-        dataSets.add(set1) // add the data sets
-        val data = LineData(dataSets)
-        set1.color = Color.BLACK
-        set1.setCircleColor(Color.BLACK)
-        root.chart.setData(data)
 
+
+        //데이터 가져올때까지 Progressbar 나타나게하기
+        viewModel.loadingLiveData.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            if (it) {
+
+                progressBar2.visibility = View.VISIBLE
+            } else {
+                progressBar2.visibility = View.GONE
+            }
+        })
 
         return root
     }

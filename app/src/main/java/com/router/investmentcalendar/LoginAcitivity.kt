@@ -38,10 +38,8 @@ class LoginAcitivity : AppCompatActivity() {
                     updateKaKaoUserId() //UserId 초기화
                 } else {
                     UserApiClient.instance.loginWithKakaoAccount(this@LoginAcitivity, callback = callback)
+                    updateKaKaoUserId() //UserId 초기화
                 }
-
-
-
         }
 
     }
