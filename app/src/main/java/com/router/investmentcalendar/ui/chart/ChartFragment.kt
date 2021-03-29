@@ -46,7 +46,7 @@ class ChartFragment : Fragment() {
                     it.profit_asset.toFloat()))
                 xIndex += 1
             }
-            val set1 = LineDataSet(values, "일일 수익률 변화")
+            val set1 = LineDataSet(values, "일일 수익률 변화(날짜 순)")
 
             val dataSets: ArrayList<ILineDataSet> = ArrayList()
             dataSets.add(set1) // add the data sets

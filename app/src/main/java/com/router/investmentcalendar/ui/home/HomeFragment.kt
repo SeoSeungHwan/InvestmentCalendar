@@ -46,6 +46,7 @@ class HomeFragment : Fragment() {
         //캘린더 수익률 표시
         viewModel.fetchInvestCollection()
 
+
         //CalendarView 클릭시 해당 날짜 투자내역 show
         root.calendarView.setOnDayClickListener { eventDay ->
             val user = viewModel.db.collection(GlobalApplication.UserId).document(getSelectDate(eventDay.calendar))
@@ -61,7 +62,7 @@ class HomeFragment : Fragment() {
 
                     if(investItem.profit_percent>=0){
                         profit_asset_tv.text = "+"+decimalFormat.format(investItem.profit_asset).toString()
-                        profit_percent_tv.text = "+"+investItem.profit_percent.toString()
+                        profit_percent_tv.text = "+"+ investItem.profit_percent.toString()
                         profit_asset_tv.setTextColor(Color.parseColor("#4CAF50"))
                         profit_percent_tv.setTextColor(Color.parseColor("#4CAF50"))
                     }else {
@@ -95,15 +96,20 @@ class HomeFragment : Fragment() {
 
         //자산삭제 floating버튼 클릭 이벤트
         root.remove_investmemo_btn.setOnClickListener {
-            viewModel.db.collection(GlobalApplication.UserId).document(getSelectDate(calendarView.firstSelectedDate))
-                .delete()
-                .addOnSuccessListener {
-                    viewModel.fetchInvestCollection()
-                    Toast.makeText(context, "투자내역이 삭제되었습니다.", Toast.LENGTH_SHORT).show()
-                    investTextSetNull()
-                }
-                .addOnFailureListener { e -> Log.w(TAG, "Error deleting document", e) }
-            viewModel.fetchInvestCollection()
+            try {
+                viewModel.db.collection(GlobalApplication.UserId)
+                    .document(getSelectDate(calendarView.firstSelectedDate))
+                    .delete()
+                    .addOnSuccessListener {
+                        viewModel.fetchInvestCollection()
+                        Toast.makeText(context, "투자내역이 삭제되었습니다.", Toast.LENGTH_SHORT).show()
+                        investTextSetNull()
+                    }
+                    .addOnFailureListener { e -> Log.w(TAG, "Error deleting document", e) }
+                viewModel.fetchInvestCollection()
+            }catch (e : Exception){
+                Toast.makeText(context, "날짜를 선택해주세요", Toast.LENGTH_SHORT).show()
+            }
         }
         return root
     }

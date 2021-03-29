@@ -32,13 +32,14 @@ class LoginAcitivity : AppCompatActivity() {
             }
         }
 
+        //TODO AMD와 실제기기 사이의 로그인 오류 해결하기
         login_btn.setOnClickListener {
                 if (UserApiClient.instance.isKakaoTalkLoginAvailable(this@LoginAcitivity)) {
                     UserApiClient.instance.loginWithKakaoTalk(this@LoginAcitivity, callback = callback)
                     updateKaKaoUserId() //UserId 초기화
                 } else {
                     UserApiClient.instance.loginWithKakaoAccount(this@LoginAcitivity, callback = callback)
-                    updateKaKaoUserId() //UserId 초기화
+                    //updateKaKaoUserId() //UserId 초기화
                 }
         }
 

@@ -39,7 +39,7 @@ class AddInvestItemFragment : Fragment() {
                 "start_asset" to start_asset_et.text.toString().toLong(),
                 "finish_asset" to finish_asset_et.text.toString().toLong(),
                 "profit_asset" to profit_asset_tv.text.toString().toLong(),
-                "profit_percent" to profit_percent_tv.text.toString().toDouble()
+                "profit_percent" to String.format("%.2f",profit_percent_tv.text.toString().toDouble())
             )
             db.collection(GlobalApplication.UserId).document(args.date).set(result)
                 .addOnSuccessListener {
