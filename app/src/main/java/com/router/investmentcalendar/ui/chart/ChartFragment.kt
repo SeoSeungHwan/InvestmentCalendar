@@ -61,8 +61,13 @@ class ChartFragment : Fragment() {
             xAxis.textColor = Color.BLACK
             xAxis.setDrawGridLines(false)
 
-            val yAxis = root.chart.axisRight
-            yAxis.setDrawGridLines(false)
+            val yRightAxis = root.chart.axisRight
+            yRightAxis.setDrawGridLines(false)
+            yRightAxis.setDrawLabels(false)
+
+            val yLeftAxis = root.chart.axisLeft
+            yLeftAxis.setDrawAxisLine(false)
+
 
             val data = LineData(dataSets)
             root.chart.setData(data)
