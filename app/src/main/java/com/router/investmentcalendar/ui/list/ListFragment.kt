@@ -39,13 +39,13 @@ class ListFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val layoutManager = LinearLayoutManager(context,
+        val linearLayoutMangerWrapper = LinearLayoutMangerWrapper(context!!,
             RecyclerView.VERTICAL,
             false
         )
         viewModel.mutableLiveDataArrayList.observe(viewLifecycleOwner, Observer {
             val adapter = InvestListRecyclerViewAdapter(it)
-            root?.invest_item_rv?.layoutManager = layoutManager
+            root?.invest_item_rv?.layoutManager = linearLayoutMangerWrapper
             root?.invest_item_rv?.adapter = adapter
         })
     }

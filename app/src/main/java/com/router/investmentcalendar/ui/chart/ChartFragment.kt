@@ -14,6 +14,7 @@ import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
+import com.google.rpc.context.AttributeContext
 import com.router.investmentcalendar.R
 import kotlinx.android.synthetic.main.fragment_chart.*
 import kotlinx.android.synthetic.main.fragment_chart.view.*
@@ -55,6 +56,7 @@ class ChartFragment : Fragment() {
             set1.setCircleColor(Color.BLACK)
             set1.mode = LineDataSet.Mode.CUBIC_BEZIER
             set1.setDrawFilled(true)
+            set1.fillColor = resources.getColor(R.color.colorPrimary);
             set1.setDrawCircleHole(true)
 
             val xAxis = root.chart.xAxis

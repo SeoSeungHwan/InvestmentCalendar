@@ -52,7 +52,7 @@
             android:fontFamily="@font/hanygo230"
             android:gravity="center"
             android:text="손익 금액"
-            android:textSize="12sp"
+            android:textSize="13sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

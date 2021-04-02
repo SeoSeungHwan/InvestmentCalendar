@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginAcitivity">
+    tools:context=".LoginAcitivity"
+    android:background="@color/colorPrimary">
 
     <ImageView
         android:id="@+id/login_btn"
@@ -16,14 +17,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/kakao_login_medium_wide" />
 
-    <ImageView
-        android:id="@+id/imageView"
+    <TextView
+        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="100dp"
+        android:fontFamily="@font/hanygo230"
+        android:text="투자 일지"
+        android:textColor="#ffffff"
+        android:textSize="40sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/icon" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

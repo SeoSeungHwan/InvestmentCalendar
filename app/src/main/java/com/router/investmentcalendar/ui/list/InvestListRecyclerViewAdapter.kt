@@ -1,14 +1,20 @@
 package com.router.investmentcalendar.ui.list
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.kakao.sdk.user.UserApiClient
+import com.router.investmentcalendar.LoginAcitivity
 import com.router.investmentcalendar.R
 import com.router.investmentcalendar.model.InvestItem
 import java.text.DecimalFormat
@@ -34,7 +40,9 @@ class InvestListRecyclerViewAdapter(private val dataSet: ArrayList<InvestItem>) 
             profit_percent_tv = view.findViewById(R.id.item_profitpercent_tv)
             item_date_tv = view.findViewById(R.id.item_date_tv)
             item_linearlayout = view.findViewById(R.id.item_linearlayout)
+
         }
+
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
